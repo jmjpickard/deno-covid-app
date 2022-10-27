@@ -1,0 +1,94 @@
+@import url("./reset.css");
+
+header {
+  width: 100%;
+  height: 80px;
+  position: sticky;
+  top: 0;
+}
+
+header .header-wrapper {
+  margin: 0 auto;
+  width: 90%;
+  max-width: 900px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+header h1 a {
+  color: #333;
+}
+
+header h1 svg {
+  width: auto;
+  height: 16px;
+}
+
+header nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+header nav a {
+  color: #454545;
+}
+
+header nav a svg {
+  width: 20px;
+  height: 20px;
+}
+
+header a svg {
+  display: inline-flex;
+}
+
+header a:hover {
+  color: #000 !important;
+}
+
+.screen {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  gap: 30px;
+  width: 100vw;
+  height: calc(100vh - 2 * 80px);
+}
+
+h1 {
+  font-size: 25pt;
+}
+
+p {
+  font-size: 15pt;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.input {
+  border: 1pt solid grey;
+  border-radius: 8px;
+  width: 30rem;
+  height: 50px;
+  padding: 10px;
+}
+
+.button {
+  background-color: gray;
+  color: white;
+  height: 50px;
+  border-radius: 8px;
+}
+
+.button:hover {
+  background-color: lightgray;
+  color: black;
+}
