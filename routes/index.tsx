@@ -18,8 +18,12 @@ export default function Index() {
       `https://api.postcodes.io/postcodes/${postcode}`
     );
     const text = await response.json();
-    const msoa = text.result.msoa.split(" ")[0];
-    setArea(msoa.toLowerCase());
+    if (text) {
+      console.log({ text });
+      const msoa = text.result.msoa.split(" ");
+      msoa.pop();
+      setArea(msoa.join(" ").toLowerCase());
+    }
   };
 
   const getCases = async (area: string) => {
@@ -31,7 +35,9 @@ export default function Index() {
     }
   };
   React.useEffect(() => {
-    getCases(area);
+    if (area) {
+      getCases(area);
+    }
   }, [area]);
 
   return (
@@ -46,7 +52,7 @@ export default function Index() {
       <h1>Find how many covid cases there are in your area</h1>
       <p>Type your postcode in below and click the button</p>
       <Input onClick={(code) => getArea(code)} />
-      {area && (
+      {cases && (
         <div>
           Yesterday there were {cases} new identified cases of covid in {area}.
         </div>
