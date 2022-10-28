@@ -6,8 +6,8 @@ import React from "react";
 
 const getEndpoint = (area: string) =>
   "https://api.coronavirus.data.gov.uk/v1/data?" +
-  `filters=areaType=msoa;areaName=${area}&` +
-  'structure={"newCases":"newCasesByPublishDate"}';
+  `filters=areaType=ltla;areaName=${area}&` +
+  'structure={"date":"date","newCases":"newCasesByPublishDate"}';
 
 export default function Index() {
   const [area, setArea] = React.useState("");
@@ -18,14 +18,17 @@ export default function Index() {
       `https://api.postcodes.io/postcodes/${postcode}`
     );
     const text = await response.json();
-    setArea(text.result.msoa);
+    const msoa = text.result.msoa.split(" ")[0];
+    setArea(msoa.toLowerCase());
   };
 
   const getCases = async (area: string) => {
     const endpoint = getEndpoint(area);
     const caseResponse = await fetch(endpoint);
     const covidCases = await caseResponse.json();
-    console.log(covidCases);
+    if (covidCases) {
+      setCases(covidCases.data[0].newCases);
+    }
   };
   React.useEffect(() => {
     getCases(area);
@@ -43,7 +46,11 @@ export default function Index() {
       <h1>Find how many covid cases there are in your area</h1>
       <p>Type your postcode in below and click the button</p>
       <Input onClick={(code) => getArea(code)} />
-      {area && <div>You live in {area}</div>}
+      {area && (
+        <div>
+          Yesterday there were {cases} new identified cases of covid in {area}.
+        </div>
+      )}
     </div>
   );
 }
